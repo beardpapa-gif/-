@@ -1,0 +1,577 @@
+body {
+    /* 🚀 【修正】本文のフォントをRoboto Monoに設定（モダン） */
+    font-family: 'Abril Fatface', monospace; 
+    margin: 0;
+    padding: 20px;
+    
+    /* 🌟 背景画像の設定 (初期値はJSでロードされるが、念のためフォールバックを設定) 🌟 */
+    background-image: url('boat-14509_256.gif'); 
+    background-size: cover; 
+    background-position: center center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+}
+
+h1 {
+    /* 🚀 【追加】フォントウェイトを細くしてモダンに */
+    font-weight: 400; 
+    /* 🚀 【追加】色を濃いグレーにして知的に */
+    color: #34495e; 
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 10px;
+}
+
+/* ... 以下のCSSはそのまま維持 ... */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    /* 🌟 半透明の背景を設定し、視認性を向上 🌟 */
+    background-color: rgba(255, 255, 255, 0.7); /* 白の半透明 */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 影を濃くして浮き立たせる */
+}
+
+#current-time {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+/* フォーム要素の基本スタイル */
+.schedule-form input[type="text"], 
+.schedule-form input[type="datetime-local"], 
+.schedule-form textarea,
+.schedule-form button {
+    padding: 10px;
+    margin: 5px 0;
+    width: calc(100% - 24px); 
+    box-sizing: border-box;
+    display: block;
+}
+
+/* 【追加】ラジオボタン用グループの調整 */
+.form-checkbox-group {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.form-checkbox-group input[type="radio"] {
+    width: auto !important;
+    margin-right: 5px;
+}
+.form-checkbox-group label {
+    margin-right: 15px; /* ラジオボタン間のスペース */
+}
+
+.schedule-form textarea {
+    resize: vertical;
+    min-height: 80px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+}
+/* 🌟 【復元】繰り返し設定のチェックボックス調整 */
+.form-checkbox-group.repeat-group {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.form-checkbox-group.repeat-group input[type="checkbox"] {
+    width: auto !important;
+    margin-right: 5px;
+}
+
+
+/* 日時入力フィールドのサイズ調整（カレンダー拡大を試みる） */
+#schedule-datetime {
+    font-size: 1.5em !important; 
+    height: 60px !important; 
+    width: calc(100% - 24px) !important; 
+    border: 2px solid #ccc; 
+    border-radius: 6px;
+    padding: 10px;
+}
+
+/* 日付ヘッダーのスタイル (日付ごとのグループ化用) */
+.date-header {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
+
+/* 日別グループのリストスタイル */
+.daily-schedule-group {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+/* 個々の予定アイテムの基本スタイル */
+.daily-schedule-group li {
+    background-color: #f9f9f9; 
+    margin: 8px 0;
+    padding: 12px 15px;
+    border-left: 5px solid #007bff;
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    border-radius: 4px;
+    transition: all 0.3s ease; 
+    width: 100%; 
+    box-sizing: border-box; /* paddingやborderをwidthに含める */
+}
+
+/* 主要情報とアクションボタンのコンテナ (最上段) */
+.schedule-info-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; 
+    min-height: 24px;
+}
+
+/* 時刻と内容のラッパー */
+.schedule-info-content-wrapper {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; 
+    min-width: 0;
+}
+
+.schedule-time {
+    font-weight: bold;
+    margin-right: 15px;
+    color: #333;
+    flex-shrink: 0;
+}
+
+.schedule-content-text {
+    flex-grow: 1; 
+    min-width: 0; 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.schedule-actions {
+    margin-left: 10px; 
+    flex-shrink: 0;
+    display: flex;
+}
+
+.schedule-actions button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* 【追加】URLリンク表示スタイル */
+.schedule-url-link {
+    font-size: 0.9em;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dashed #ccc;
+    width: 100%;
+}
+.schedule-url-link a {
+    color: #007bff; /* 日付ヘッダーと同じ青 */
+    text-decoration: none;
+    font-weight: bold;
+    display: block; /* ブロック要素にしてクリックしやすいように */
+}
+.schedule-url-link a:hover {
+    text-decoration: underline;
+}
+
+/* 【追加】準備物/メモ表示スタイル */
+.schedule-memo-text {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+    padding-top: 5px;
+    /* リンクがある場合はリンクの境界線に任せるため、線を消す */
+    border-top: none; 
+    width: 100%;
+    white-space: pre-wrap; 
+}
+
+/* ---------------------------------------------------- */
+/* 【時間による段階的な色分けの定義】 */
+/* ---------------------------------------------------- */
+
+/* 1. 🚨 30分未満: 切迫 (最優先の警告) */
+.time-urgent {
+    background-color: #f7a8a8 !important; 
+    border-left: 10px solid #d9534f !important; 
+    font-weight: bold;
+}
+
+/* 2. ⚠️ 2時間未満: 警告 (オレンジ系) */
+.time-warning {
+    background-color: #ffe599 !important; 
+    border-left: 10px solid #ff9f1c !important; 
+}
+
+/* 3. 🟠 4時間未満: 接近 (黄色系) */
+.time-approaching {
+    background-color: #fff9c4 !important; 
+    border-left: 5px solid #ffeb3b !important; 
+}
+
+
+/* ---------------------------------------------------- */
+/* 【重要/課題予定を強調するUI (緑色に設定)】 */
+/* ---------------------------------------------------- */
+.focus-schedule {
+    background-color: #c8e6c9 !important; /* 薄い緑 (Green 100) */
+    border: 2px solid #4caf50;          /* 標準の緑 (Green 500) */
+    border-left: 10px solid #4caf50 !important; /* 濃い緑 */
+    font-weight: bold;
+    color: #1b5e20;                     /* 濃い緑の文字色 */
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* 緑の影 */
+}
+/* 重要予定は時間の色分けの影響を受けないようにする（上書き） */
+.focus-schedule.time-urgent, 
+.focus-schedule.time-warning, 
+.focus-schedule.time-approaching {
+    background-color: #c8e6c9 !important;
+    border-left-color: #4caf50 !important;
+}
+
+.focus-schedule .schedule-time {
+    color: #1b5e20; /* 濃い緑の文字色 */
+    font-size: 1.1em;
+}
+
+/* ---------------------------------------------------- */
+/* 【会議予定を強調するUI (青色を維持)】 */
+/* ---------------------------------------------------- */
+.meeting-schedule {
+    background-color: #bbdefb !important; /* 薄い青 */
+    border: 2px solid #2196f3; 
+    border-left: 10px solid #2196f3 !important; /* 濃い青 */
+    font-weight: bold;
+    color: #1a237e;
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.5); 
+}
+/* 会議予定は時間の色分けの影響を受けないようにする（上書き） */
+.meeting-schedule.time-urgent, 
+.meeting-schedule.time-warning, 
+.meeting-schedule.time-approaching {
+    background-color: #bbdefb !important;
+    border-left-color: #2196f3 !important;
+}
+
+.meeting-schedule .schedule-time {
+    color: #1a237e; 
+    font-size: 1.1em;
+}
+
+/* ---------------------------------------------------- */
+/* 【繰り返し予定の表示スタイル】 */
+/* ---------------------------------------------------- */
+.repeating-schedule {
+    /* 薄い青緑系の背景でルーティーンであることを示す */
+    background-color: #e0f2f1 !important; 
+    border-left: 5px solid #009688 !important; /* 目立ちすぎない色 */
+}
+
+/* 繰り返し予定のタグ */
+.repeat-tag {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #009688;
+    background-color: #b2dfdb;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+/* 繰り返し予定も重要度や時間警告のスタイルを継承できるようにする */
+.repeating-schedule.focus-schedule {
+    background-color: #c8e6c9 !important; 
+    border-left-color: #4caf50 !important;
+}
+.repeating-schedule.time-urgent {
+    background-color: #f7a8a8 !important;
+    border-left-color: #d9534f !important;
+}
+
+
+/* ---------------------------------------------------- */
+/* 【日付の開閉（アコーディオン）機能のスタイル】 */
+/* ---------------------------------------------------- */
+
+/* 日付ヘッダーをタップ可能にする */
+.date-header {
+    cursor: pointer; 
+    user-select: none; 
+    position: relative;
+    padding-right: 40px; 
+    transition: background-color 0.2s;
+}
+
+/* 開閉インジケーター（矢印）のスタイル */
+.date-header::after {
+    content: '+'; 
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5em;
+    line-height: 1;
+    transition: transform 0.3s ease;
+    color: white; /* 確実に表示されるように色を指定 */
+}
+
+/* 開いた状態のインジケーター */
+.date-header.is-open::after {
+    content: '-'; 
+    transform: translateY(-50%) rotate(0deg);
+}
+
+/* 予定リスト（コンテンツ）のスタイル */
+.daily-schedule-group {
+    max-height: 0; /* 初期状態で高さをゼロにする（折りたたむ） */
+    overflow: hidden;
+    transition: max-height 0.5s ease-out; /* 開閉アニメーション */
+    padding-left: 0; 
+    list-style: none; 
+}
+
+/* 開いた状態のリスト */
+.daily-schedule-group.is-open {
+    max-height: 1000px; /* 開いた時は十分な高さを設定 */
+    margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------- */
+/* 【背景テーマ切り替えボタンのスタイル】 */
+/* ---------------------------------------------------- */
+.background-switcher {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.7); /* 半透明でフォームと区別 */
+    text-align: center;
+}
+
+.bg-button {
+    padding: 8px 15px;
+    margin: 5px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #007bff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+.bg-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* 🌟 アクティブなボタンのスタイル 🌟 */
+.bg-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+
+/* ---------------------------------------------------- */
+/* 🌟 【新規追加】時間割マップピンのスタイル 🌟 */
+/* ---------------------------------------------------- */
+
+.map-section {
+    margin-top: 30px;
+}
+
+#lecture-map-container {
+    position: relative; /* ピンを絶対配置するための基準 */
+    width: fit-content; /* マップ画像のサイズに合わせる */
+    margin: 20px auto;
+    cursor: pointer; /* ピン表示/非表示のトリガーとしてカーソル変更 */
+}
+
+
+#campus-map-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    /* クリックの邪魔をしないように */
+    user-select: none;
+    /* 🚨 【修正】クリックをブロックする設定を削除またはコメントアウト */
+    /* pointer-events: none; */ 
+}
+
+/* 講義ピンの基本スタイル */
+.lecture-pin {
+    position: absolute;
+    width: 40px; 
+    height: 40px; 
+    transform: translate(-50%, -100%); /* マップ上の座標がピンの先端になるように調整 */
+    z-index: 10;
+    opacity: 0; /* 初期状態では非表示 */
+    transition: opacity 0.3s ease, transform 0.1s ease;
+    cursor: pointer;
+}
+.lecture-pin:hover {
+    z-index: 20; /* ホバーで一番手前に */
+    transform: translate(-50%, -105%) scale(1.1); /* ホバーで少し持ち上げて拡大 */
+}
+
+/* ピンが表示されている状態 */
+.lecture-pin.is-visible {
+    opacity: 1;
+}
+
+/* 🌟 赤色の水滴型ピン本体 🌟 */
+.pin-body {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background: #d9534f; /* 赤色 */
+    border-radius: 50% 50% 50% 0; /* 水滴の上半分を丸く */
+    transform: rotate(-45deg);
+    margin: 5px 0 0 5px; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* 🌟 教授の顔写真コンテナ (丸枠) 🌟 */
+.pin-photo-container {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* 丸枠 */
+    border: 3px solid #f9f9f9; /* 枠線 */
+    overflow: hidden;
+    z-index: 2;
+}
+
+.pin-photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 🌟 詳細情報ポップアップ (講義名・教室名) 🌟 */
+.pin-details {
+    position: absolute;
+    top: -80px; /* ピンの上部に配置 */
+    left: -45px;
+    background: #fff;
+    color: #333;
+    padding: 8px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    display: none; /* 初期状態は非表示 */
+    z-index: 100;
+    line-height: 1.3;
+    font-size: 0.9em;
+}
+
+.pin-details strong {
+    color: #d9534f; /* 講義名を赤色に */
+}
+
+.pin-details::after { /* 吹き出しの三角 */
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    
+    /* 🚨 【修正】中央揃えを確実にするためのスタイルを追加・修正 🚨 */
+    left: 50%; 
+    transform: translateX(-50%); /* 中央に寄せた後、自分の幅の半分だけ左に戻す */
+    
+    border-width: 5px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+}
+
+/* 詳細が表示されている状態 */
+.lecture-pin .pin-details {
+    display: none; /* JSでクリック時にdisplay: blockに切り替える */
+}
+
+
+/* ---------------------------------------------------- */
+/* 【レスポンシブ対応 - 画面幅が狭い場合 (見切れ対策)】 */
+/* ---------------------------------------------------- */
+@media (max-width: 500px) {
+    /* ... 既存のレスポンシブコードを維持 ... */
+}
+/* ---------------------------------------------------- */
+/* 【新規追加】完了済み（チェックボックスON）のスタイル */
+/* ---------------------------------------------------- */
+
+.schedule-item-completed {
+    /* 打ち消し線 */
+    text-decoration: line-through; 
+    /* 文字色を薄く */
+    color: #888 !important; 
+    /* 背景を薄いグレーに */
+    background-color: #e9ecef !important; 
+    /* 左の強調ラインも薄い色に変更 */
+    border-left: 5px solid #ced4da; 
+    transition: all 0.3s ease;
+}
+
+/* 完了済みアイテム内の要素も色を薄くする */
+.schedule-item-completed .schedule-time,
+.schedule-item-completed .schedule-content-text {
+    color: #888 !important;
+}
+
+/* 完了済みアイテムは、時間の色分けや重要度を無視する */
+.schedule-item-completed.time-urgent,
+.schedule-item-completed.time-warning,
+.schedule-item-completed.focus-schedule,
+.schedule-item-completed.meeting-schedule {
+    border-left: 5px solid #ced4da !important;
+    background-color: #e9ecef !important;
+    text-decoration: line-through;
+}
+
+/* チェックボックスの配置を調整 */
+.schedule-item-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.schedule-item-checkbox {
+    /* チェックボックスの幅を確保 */
+    width: 20px; 
+    height: 20px;
+    margin-right: 15px;
+    /* カテゴリチェックボックスに合わせたサイズ調整 */
+    flex-shrink: 0;
+}
+/* 主要情報とアクションボタンのコンテナ (最上段) のCSSを調整 */
+.schedule-info-main {
+    /* flex-startにしてチェックボックスと並列にする */
+    justify-content: flex-start; 
+}
+/* 時刻と内容のラッパーの調整 */
+.schedule-info-content-wrapper {
+    /* チェックボックスと時刻の間にスペース確保 */
+    margin-left: 0; 
+}
+/* style.cssの任意の場所に追加 (bg-buttonのスタイルは既に存在するため不要かもしれませんが、念のため) */
+#timetable-toggle-button {
+    margin: 10px auto;
+    display: block;
+}

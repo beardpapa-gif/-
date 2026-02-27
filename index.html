@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My・Scedule</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"> </head>
+</head>
+<body>
+    <div class="container">
+        <div id="current-time"></div>
+
+        <h1>Scheduling Book by WebSite</h1>
+
+        <div class="schedule-form">
+            <h2>予定の登録</h2>
+            <input type="datetime-local" id="schedule-datetime" required>
+            <input type="text" id="schedule-content" placeholder="予定の内容" required>
+            <input type="url" id="schedule-url" placeholder="関連リソースのURL ">
+            <textarea id="schedule-memo" placeholder="準備物、関連リンク、リマインドメモなど"></textarea>
+            
+            <div class="form-checkbox-group">
+                <input type="radio" name="schedule-category" id="category-none" value="none" checked> 
+                <label for="category-none">なし</label>
+                
+                <input type="radio" name="schedule-category" id="category-important" value="important"> 
+                <label for="category-important">重要/課題</label>
+
+                <input type="radio" name="schedule-category" id="category-meeting" value="meeting"> 
+                <label for="category-meeting">会議</label>
+            </div>
+
+            <div class="form-checkbox-group repeat-group">
+                <input type="checkbox" id="schedule-repeat-weekly"> 
+                <label for="schedule-repeat-weekly">毎週</label>
+                <input type="number" id="repeat-weeks" value="10" min="1" max="52" style="width: 60px; margin-left: 5px; padding: 5px;">
+                <label for="repeat-weeks">週間繰り返す</label>
+            </div>
+            <button onclick="addSchedule()">予定を追加</button>
+        </div>
+        
+        <div class="background-switcher">
+            <h3>背景テーマの変更</h3>
+            <button onclick="changeBackground('none')" class="bg-button">背景なし (白)</button>
+            <button onclick="changeBackground('maru')" class="bg-button">幾何学</button>
+            <button onclick="changeBackground('galaxcy')" class="bg-button">公転</button>
+            <button onclick="changeBackground('neko')" class="bg-button">猫</button>
+            <button onclick="changeBackground('ocean')" class="bg-button">海の画像</button>
+            <button onclick="changeBackground('snow')" class="bg-button">雪の画像</button>
+            <button onclick="changeBackground('hole')" class="bg-button">ホール</button>
+        </div>
+
+        <div class="schedule-list">
+            <h2>登録済み予定</h2>
+            <div id="schedules">
+                </div>
+        </div>
+        
+    <div class="map-section container">
+    <h2>時間割と講義場所マップ</h2>
+
+    <div style="text-align: center; margin-bottom: 10px;">
+        <button onclick="toggleTimetableImage()" id="timetable-toggle-button" class="bg-button">時間割を表示/非表示</button>
+    </div>
+    
+    <div id="timetable-image-container" style="text-align: center; margin-bottom: 20px;">
+        <img id="timetable-image" src="time table.jpg" alt="時間割写真" style="max-width: 100%; height: auto; border: 1px solid #ccc; display: block;">
+    </div>
+    <p>マップをクリックしてピンを表示/非表示</p>
+    <div id="lecture-map-container">
+        <img id="campus-map-image" src="shinnarashino2018noakanehama.jpg" alt="学内マップ">
+        
+        </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
